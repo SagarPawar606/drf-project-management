@@ -7,7 +7,7 @@ from rest_framework import status
 
 from .models import Employee
 
-from .serializers import EmployeeSerializer, EmployeePostSerializer
+from .serializers import EmployeeSerializer, UserSerializer #, EmployeePostSerializer
 
 # Create your views here.
 
@@ -26,22 +26,25 @@ class Employees(APIView):
         serializer = EmployeeSerializer(emp, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
-    # def post(self, request):
-    #     serializer = EmployeeSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(status=status.HTTP_400_BAD_REQUEST)
-
     def post(self, request):
-        serializer = EmployeePostSerializer(data=request.data)
+        serializer = EmployeeSerializer(data=request.data)
         if serializer.is_valid():
-            data = serializer.data
-            u = User(username=data.get("emp_name"), email=data.get("email"))
-            u.save()
-            e = Employee(user=u, position=data.get("position"), joining_date=data.get("joining_date"))
-            e.save()
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        print(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+
+    # def post(self, request):
+    #     serializer = EmployeePostSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         data = serializer.data
+    #         u = User(username=data.get("emp_name"), email=data.get("email"))
+    #         u.save()
+    #         e = Employee(user=u, position=data.get("position"), joining_date=data.get("joining_date"))
+    #         e.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
             
 
 
