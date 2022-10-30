@@ -7,7 +7,7 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'status')
 
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'employee', 'position')
+    list_display = ('id', 'user', 'position')
 
 class ModuleAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'project', 'priority')

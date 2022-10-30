@@ -14,12 +14,12 @@ project_status = [
 
 
 class Employee(models.Model):
-    employee = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     position = models.CharField(max_length=255)
     joining_date = models.DateField(blank=True)
 
     def __str__(self):
-        return self.employee.username
+        return self.user.username
     
 
 class Project(models.Model):
